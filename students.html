@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Student Records</title>
+    <style>
+        /* Include additional styling as needed */
+        .hidden {
+            display: none;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        nav {
+            background-color: #76acdf;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        nav li {
+            float: left;
+        }
+
+        nav li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav li a:hover {
+            background-color: #111;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="/">Homepage</a></li>
+            <li><a href="/students-page">Students</a></li>
+            <li><a href="/alumni">Alumni</a></li>
+            <li><a href="/schools">Schools</a></li>
+            <li><a href="/consultations">Consultations</a></li>
+            <li><a href="/programs">Programs</a></li>
+            <li><a href="/school-programs">Schools Programs</a></li>
+        </ul>
+    </nav>
+
+    <h2>Students Table</h2>
+    <!-- Browse section -->
+
+    <button onclick="showAllForms()">Show All</button>
+
+    <table id="studentsTable">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>Student ID</th>
+                <th>Email</th>
+                <th>Full Name</th>
+                <th>Registration Date</th>
+                <th>Country</th>
+                <th>Interested Program</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="studentsTableBody">
+            <tr>
+                <td><a href="#" onClick="showUpdateForm()">Edit</a></td>
+                <td><a href="#" onclick="showDeleteForm()">Delete</a></td>
+                <td>1</td>
+                <td>jsmith@gmail.com</td>
+                <td>John Smith</td>
+                <td>03/19/25</td>
+                <td>United States</td>
+                <td>Chemical Engineering</td>
+            </tr>
+            <tr>
+                <td><a href="#" onClick="showUpdateForm()">Edit</a></td>
+                <td><a href="#" onclick="showDeleteForm()">Delete</a></td>
+                <td>2</td>
+                <td>pete.j@hotmail.com</td>
+                <td>Peter Jones</td>
+                <td>01/21/25</td>
+                <td>Canada</td>
+                <td>Law</td>
+            </tr>
+            <tr>
+                <td><a href="#" onClick="showUpdateForm()">Edit</a></td>
+                <td><a href="#" onclick="showDeleteForm()">Delete</a></td>
+                <td>3</td>
+                <td>sam.c@gmail.com</td>
+                <td>Sara Lopez</td>
+                <td>02/04/25</td>
+                <td>Mexico</td>
+                <td>Medicine</td>
+            </tr>
+            <tr>
+                <td><a href="#" onClick="showUpdateForm()">Edit</a></td>
+                <td><a href="#" onclick="showDeleteForm()">Delete</a></td>
+                <td>4</td>
+                <td>m.allen@hotmail.com</td>
+                <td>Mary Allen</td>
+                <td>01/15/25</td>
+                <td>Australia</td>
+                <td>Business</td>
+            </tr>
+            <tr>
+                <td><a href="#" onClick="showUpdateForm()">Edit</a></td>
+                <td><a href="#" onclick="showDeleteForm()">Delete</a></td>
+                <td>5</td>
+                <td>john.cena@gmail.com</td>
+                <td>John Cena</td>
+                <td>03/01/25</td>
+                <td>Puerto Rico</td>
+                <td>Philosophy</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button onclick="showCreateForm()">Add New Student</button>
+
+    <!-- Insert section -->
+    <div id="createStudentForm" class="hidden">
+        <h3>Add Student</h3>
+        <form id="createStudentForm">
+            <!-- Input for Student ID -->
+            <label for="studentId">Student ID:</label>
+            <input type="text" id="studentId" name="studentId" required>
+
+            <!-- Input for Email -->
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <!-- Input for Full Name -->
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" name="fullName" required>
+
+            <!-- Input for Registration Date -->
+            <label for="registrationDate">Registration Date:</label>
+            <input type="date" id="registrationDate" name="registrationDate" required>
+
+            <!-- Input for Country -->
+            <label for="country">Country:</label>
+            <input type="text" id="country" name="country" required>
+
+            <!-- Input for Interested Program -->
+            <label for="interestedProgram">Interested Program:</label>
+            <input type="text" id="interestedProgram" name="interestedProgram" required>
+
+            <!-- Save and Cancel buttons -->
+            <button type="button" onclick="insertStudent()">Save</button>
+            <button type="button" onclick="hideCreateForm()">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Update section -->
+    <div id="updateStudentForm" class="hidden">
+        <h3>Update Student</h3>
+        <form id="updateForm">
+            <!-- Input for Student ID (Read-only as ID should not be changed) -->
+            <label for="updateStudentId">Student ID:</label>
+            <input type="text" id="updateStudentId" name="studentID" value="1" readonly>
+
+            <!-- Input for Email -->
+            <label for="updateEmail">Email:</label>
+            <input type="email" id="updateEmail" name="email" value="jsmith@gmail.com" required>
+
+            <!-- Input for Full Name -->
+            <label for="updateFullName">Full Name:</label>
+            <input type="text" id="updateFullName" name="fullName" value="John Smith" required>
+
+            <!-- Input for Registration Date -->
+            <label for="updateRegistrationDate">Registration Date:</label>
+            <input type="date" id="updateRegistrationDate" name="registrationDate" value="2025-03-19" required>
+
+            <!-- Input for Country -->
+            <label for="updateCountry">Country:</label>
+            <input type="text" id="updateCountry" name="country" value="United States" required>
+
+            <!-- Input for Interested Program -->
+            <label for="updateInterestedProgram">Interested Program:</label>
+            <input type="text" id="updateInterestedProgram" name="interestedProgram" value="Chemical Engineering"
+                required>
+
+            <!-- Update and Cancel buttons -->
+            <button type="button" onclick="updateStudent()">Update</button>
+            <button type="button" onclick="hideUpdateForm()">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Delete section -->
+    <div id="deleteStudentForm" class="hidden">
+        <h3>Are you sure you want to delete this student?</h3>
+        <button type="button" onclick="deleteStudent()">Delete</button>
+        <button type="button" onclick="hideDeleteForm()">Cancel</button>
+    </div>
+
+    <script>
+        function loadStudents() {
+            fetch('/students')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    const tableBody = document.getElementById('studentsTableBody');
+                    tableBody.innerHTML = ''; // Clear table body first
+
+                    data.forEach((student) => {
+                        const row = tableBody.insertRow();
+                        row.innerHTML = `
+                    <td><a href="#" onClick="showUpdateForm(${JSON.stringify(student).replace(/"/g, '&quot;')})">Edit</a></td>
+                    <td><a href="#" onclick="showDeleteForm(${student.studentID})">Delete</a></td>
+                    <td>${student.studentID}</td>
+                    <td>${student.email}</td>
+                    <td>${student.fullName}</td>
+                    <td>${student.registrationDate}</td>
+                    <td>${student.country}</td>
+                    <td>${student.interestedProgram}</td>
+                `;
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching students:', error);
+                });
+        }
+
+        // JavaScript functions to show and hide forms
+        function showCreateForm() {
+            document.getElementById("createStudentForm").style.display = 'block';
+        }
+
+        function hideCreateForm() {
+            document.getElementById("createStudentForm").style.display = 'none';
+        }
+
+        let currentStudentId;
+
+        // function showUpdateForm(studentID) {
+        //     currentStudentId = studentID;
+        //     document.getElementById("updateStudentForm").style.display = 'block';
+        // }
+
+        function hideUpdateForm() {
+            document.getElementById("updateStudentForm").style.display = 'none';
+        }
+        
+        function showDeleteForm(studentID) {
+            currentStudentId = studentID;
+            document.getElementById("deleteStudentForm").style.display = 'block';
+        }
+
+        function hideDeleteForm() {
+            document.getElementById("deleteStudentForm").style.display = 'none';
+        }
+
+        // Placeholder functions for CRUD operations
+        function insertStudent() {
+            const email = document.getElementById('email').value;
+            const fullName = document.getElementById('fullName').value;
+            const registrationDate = document.getElementById('registrationDate').value;
+            const country = document.getElementById('country').value;
+            const interestedProgram = document.getElementById('interestedProgram').value;
+
+            const studentData = { email, fullName, registrationDate, country, interestedProgram };
+
+            fetch('/students', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(studentData),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(() => {
+                    hideCreateForm();
+                    // document.getElementById('createStudentForm').reset();
+                    loadStudents(); // Reload the table
+                })
+                .catch((error) => {
+                    if (error instanceof SyntaxError) {
+                        console.error('There was a syntax error in the response:', error);
+                    } else {
+                        console.error('Error inserting student:', error);
+                    }
+                });
+        }
+
+        function updateStudent() {
+            
+            const studentID = document.getElementById('updateStudentId').value;
+            const email = document.getElementById('updateEmail').value;
+            const fullName = document.getElementById('updateFullName').value;
+            const registrationDate = document.getElementById('updateRegistrationDate').value;
+            const country = document.getElementById('updateCountry').value;
+            const interestedProgram = document.getElementById('updateInterestedProgram').value;
+
+            const studentData = { email, fullName, registrationDate, country, interestedProgram };
+
+            fetch(`/students/${studentID}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(studentData),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(() => {
+                    hideUpdateForm();
+                    loadStudents(); // Reload the table
+                })
+                .catch((error) => {
+                    console.error('Error updating student:', error);
+                });
+        }
+
+        function deleteStudent() {
+            if (currentStudentId == null) {
+                console.error('Error deleting student: No studentID provided.');
+                return;
+            }
+
+            fetch(`/students/${currentStudentId}`, {
+                method: 'DELETE',
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(() => {
+                    loadStudents();
+                    hideDeleteForm();
+                })
+                .catch((error) => {
+                    console.error('Error deleting student:', error);
+                });
+        }
+
+        function showAllForms() {
+            document.getElementById('updateStudentForm').style.display = 'block';
+            document.getElementById('deleteStudentForm').style.display = 'block';
+            document.getElementById('createStudentForm').style.display = 'block';
+        }
+
+        function hideAllForms() {
+            document.getElementById('updateStudentForm').style.display = 'none';
+            document.getElementById('deleteStudentForm').style.display = 'none';
+            document.getElementById('createStudentForm').style.display = 'none';
+        }
+
+        function showUpdateForm(student) {
+            document.getElementById('updateStudentId').value = student.studentID;
+            document.getElementById('updateEmail').value = student.email;
+            document.getElementById('updateFullName').value = student.fullName;
+            
+            const formattedDate = student.registrationDate.split('T')[0];
+
+            document.getElementById('updateRegistrationDate').value = formattedDate;
+            document.getElementById('updateCountry').value = student.country;
+            document.getElementById('updateInterestedProgram').value = student.interestedProgram;
+            document.getElementById('updateStudentForm').style.display = 'block';
+        }
+
+        // Add event listeners for form submissions or button clicks that call insertStudent, updateStudent, deleteStudent functions
+        document.getElementById('createStudentForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent actual form submission
+            insertStudent();
+        });
+
+        document.getElementById('updateStudentForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent actual form submission
+            updateStudent();
+        });
+
+        document.getElementById('deleteStudentForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent actual form submission
+            deleteStudent();
+        });
+
+        // Call loadStudents when the page loads
+        document.addEventListener('DOMContentLoaded', loadStudents);
+    </script>
+
+</body>
+
+</html>

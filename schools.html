@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Schools Records</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        nav {
+            background-color: #76acdf;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        nav li {
+            float: left;
+        }
+
+        nav li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav li a:hover {
+            background-color: #111;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="/">Homepage</a></li>
+            <li><a href="/students-page">Students</a></li>
+            <li><a href="/alumni">Alumni</a></li>
+            <li><a href="/schools">Schools</a></li>
+            <li><a href="/consultations">Consultations</a></li>
+            <li><a href="/programs">Programs</a></li>
+            <li><a href="/school-programs">Schools Programs</a></li>
+        </ul>
+    </nav>
+
+    <h2>Schools Table</h2>
+    <!-- Browse section -->
+
+    <button onclick="showAllForms()">Show All</button>
+
+    <table id="schoolsTable">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>School ID</th>
+                <th>School Name</th>
+                <th>Location</th>
+                <th>Contact Info</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="schoolsTableBody">
+            <!-- Schools data -->
+            <tr>
+                <td><a href="#" onClick="showUpdateForm()">Edit</a></td>
+                <td><a href="#" onclick="showDeleteForm()">Delete</a></td>
+                <td>1</td>
+                <td>University of Washington</td>
+                <td>United States</td>
+                <td>help@uwashington.edu</td>
+            </tr>
+            <tr>
+                <td><a href="#" onClick="showUpdateForm()">Edit</a></td>
+                <td><a href="#" onclick="showDeleteForm()">Delete</a></td>
+                <td>2</td>
+                <td>Boston College</td>
+                <td>United States</td>
+                <td>help@bostoncollege.edu</td>
+            </tr>
+            <tr>
+                <td><a href="#" onClick="showUpdateForm()">Edit</a></td>
+                <td><a href="#" onclick="showDeleteForm()">Delete</a></td>
+                <td>3</td>
+                <td>University of Buenos Aires</td>
+                <td>Argentina</td>
+                <td>help@ubuenosaires.edu</td>
+            </tr>
+            <tr>
+                <td><a href="#" onClick="showUpdateForm()">Edit</a></td>
+                <td><a href="#" onclick="showDeleteForm()">Delete</a></td>
+                <td>4</td>
+                <td>The University of Hong Kong</td>
+                <td>Hong Kong</td>
+                <td>help@uhongkong.edu</td>
+            </tr>
+            <tr>
+                <td><a href="#" onClick="showUpdateForm()">Edit</a></td>
+                <td><a href="#" onclick="showDeleteForm()">Delete</a></td>
+                <td>5</td>
+                <td>University of Sydney</td>
+                <td>Australia</td>
+                <td>help@usydney.edu</td>
+            </tr>
+        </tbody>
+        
+    </table>
+
+    <button onclick="showCreateForm()">Add New School</button>
+
+    <!-- Insert section -->
+    <div id="createSchoolForm" class="hidden">
+        <h3>Add School</h3>
+        <form id="createSchoolForm">
+            <!-- Input for School Name -->
+            <label for="schoolName">School Name:</label>
+            <input type="text" id="schoolName" name="schoolName" required>
+
+            <!-- Input for Location -->
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required>
+
+            <!-- Input for Contact Info -->
+            <label for="contactInfo">Contact Info:</label>
+            <input type="text" id="contactInfo" name="contactInfo" required>
+
+            <!-- Save and Cancel buttons -->
+            <button type="button" onclick="insertSchool()">Save</button>
+            <button type="button" onclick="hideCreateForm()">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Update section -->
+    <div id="updateSchoolForm" class="hidden">
+        <h3>Update School</h3>
+        <form id="updateSchoolForm">
+            <!-- Input for School ID (Read-only as ID should not be changed) -->
+            <label for="updateSchoolId">School ID:</label>
+            <input type="text" id="updateSchoolId" name="schoolId" readonly>
+
+            <!-- Input for School Name -->
+            <label for="updateSchoolName">School Name:</label>
+            <input type="text" id="updateSchoolName" name="schoolName" required>
+
+            <!-- Input for Location -->
+            <label for="updateLocation">Location:</label>
+            <input type="text" id="updateLocation" name="location" required>
+
+            <!-- Input for Contact Info -->
+            <label for="updateContactInfo">Contact Info:</label>
+            <input type="text" id="updateContactInfo" name="contactInfo" required>
+
+            <!-- Update and Cancel buttons -->
+            <button type="button" onclick="updateSchool()">Update</button>
+            <button type="button" onclick="hideUpdateForm()">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Delete section -->
+    <div id="deleteSchoolForm" class="hidden">
+        <h3>Are you sure you want to delete this school?</h3>
+        <button type="button" onclick="deleteSchool()">Delete</button>
+        <button type="button" onclick="hideDeleteForm()">Cancel</button>
+    </div>
+
+    <script>
+        function loadSchools() {
+            fetch('/schools')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('schoolsTableBody');
+                    tableBody.innerHTML = ''; // Clear table body first
+
+                    data.forEach((school) => {
+                        const row = tableBody.insertRow();
+                        row.innerHTML = `
+                        <td><a href="#" onClick="showUpdateForm(${JSON.stringify(school).replace(/"/g, '&quot;')})">Edit</a></td>
+                        <td><a href="#" onclick="showDeleteForm(${school.schoolID})">Delete</a></td>
+                        <td>${school.schoolID}</td>
+                        <td>${school.schoolName}</td>
+                        <td>${school.location}</td>
+                        <td>${school.contactInfo}</td>
+                    `;
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching schools:', error);
+                });
+        }
+
+        // JavaScript functions to show and hide forms
+        function showAllForms() {
+            document.getElementById('updateSchoolForm').style.display = 'block';
+            document.getElementById('deleteSchoolForm').style.display = 'block';
+            document.getElementById('createSchoolForm').style.display = 'block';
+        }
+
+        function hideAllForms() {
+            document.getElementById('updateSchoolForm').style.display = 'none';
+            document.getElementById('deleteSchoolForm').style.display = 'none';
+            document.getElementById('createSchoolForm').style.display = 'none';
+        }
+
+        function showUpdateForm(school) {
+            document.getElementById('updateSchoolId').value = school.schoolID;
+            document.getElementById('updateSchoolName').value = school.schoolName;
+            document.getElementById('updateLocation').value = school.location;
+            document.getElementById('updateContactInfo').value = school.contactInfo;
+            document.getElementById('updateSchoolForm').style.display = 'block';
+        }
+
+        function hideUpdateForm() {
+            document.getElementById('updateSchoolForm').style.display = 'none';
+        }
+
+        function showDeleteForm(schoolID) {
+            currentSchoolId = schoolID;
+            document.getElementById('deleteSchoolForm').style.display = 'block';
+        }
+
+        function hideDeleteForm() {
+            document.getElementById('deleteSchoolForm').style.display = 'none';
+        }
+        function insertSchool() {
+            // Handle inserting a new school
+            const schoolName = document.getElementById('schoolName').value;
+            const location = document.getElementById('location').value;
+            const contactInfo = document.getElementById('contactInfo').value;
+
+            fetch('/schools', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    schoolName,
+                    location,
+                    contactInfo
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Successfully added school:', data);
+                    hideCreateForm();
+                    loadSchools();
+                })
+                .catch((error) => {
+                    console.error('Error adding school:', error);
+                });
+        }
+
+        function updateSchool() {
+            // Handle updating a school
+            const schoolName = document.getElementById('updateSchoolName').value;
+            const location = document.getElementById('updateLocation').value;
+            const contactInfo = document.getElementById('updateContactInfo').value;
+
+            fetch(`/schools/${currentSchoolId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    schoolName,
+                    location,
+                    contactInfo
+                }),
+            })
+                .then(response => response.text())
+                .then(data => {
+                    console.log('Successfully updated school:', data);
+                    hideUpdateForm();
+                    loadSchools();
+                })
+                .catch((error) => {
+                    console.error('Error updating school:', error);
+                });
+        }
+
+        function deleteSchool() {
+            // Handle deleting a school
+            fetch(`/schools/${currentSchoolId}`, {
+                method: 'DELETE',
+            })
+                .then(response => response.text())
+                .then(data => {
+                    console.log('Successfully deleted school:', data);
+                    hideDeleteForm();
+                    loadSchools();
+                })
+                .catch((error) => {
+                    console.error('Error deleting school:', error);
+                });
+        }
+
+        // Add event listeners for form submissions or button clicks that call insertSchool, updateSchool, deleteSchool functions
+        document.getElementById('createSchoolForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent actual form submission
+            insertSchool();
+        });
+
+        document.getElementById('updateSchoolForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent actual form submission
+            updateSchool();
+        });
+
+        document.getElementById('deleteSchoolForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent actual form submission
+            deleteSchool();
+        });
+
+        // Call loadSchools when the page loads
+        document.addEventListener('DOMContentLoaded', loadSchools);
+    </script>
+
+</body>
+
+</html>

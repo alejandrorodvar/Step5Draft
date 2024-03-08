@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Program Records</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        nav {
+            background-color: #76acdf;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        nav li {
+            float: left;
+        }
+        nav li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        nav li a:hover {
+            background-color: #111;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="/">Homepage</a></li>
+            <li><a href="/students-page">Students</a></li>
+            <li><a href="/alumni">Alumni</a></li>
+            <li><a href="/schools">Schools</a></li>
+            <li><a href="/consultations">Consultations</a></li>
+            <li><a href="/programs">Programs</a></li>
+            <li><a href="/school-programs">Schools Programs</a></li>
+        </ul>
+    </nav>
+
+    <h2>Programs Table</h2>
+    <button onclick="showAddProgramForm()">Add New Program</button>
+    <button onclick="showAllForms()">Show All</button>
+    <table>
+        <tr>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Program ID</th>
+            <th>Program Name</th>
+            <th>Description</th>
+            <th>Degree Level</th>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="showUpdateProgramForm()">Edit</a></td>
+            <td><a href="#" onclick="showDeleteProgramForm()">Delete</a></td>
+            <td>1</td>
+            <td>Boston College M.S. in Data Science</td>
+            <td>Online Master for Data Science</td>
+            <td>Master</td>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="showUpdateProgramForm()">Edit</a></td>
+            <td><a href="#" onclick="showDeleteProgramForm()">Delete</a></td>
+            <td>2</td>
+            <td>Seton Hall Master of Science in Accounting</td>
+            <td>Online Master for Accounting</td>
+            <td>Master</td>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="showUpdateProgramForm()">Edit</a></td>
+            <td><a href="#" onclick="showDeleteProgramForm()">Delete</a></td>
+            <td>3</td>
+            <td>Stockholm University Business Analytics and Data Science</td>
+            <td>Online BS for Business Analytics and Data Science</td>
+            <td>Bachelor of Science</td>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="showUpdateProgramForm()">Edit</a></td>
+            <td><a href="#" onclick="showDeleteProgramForm()">Delete</a></td>
+            <td>4</td>
+            <td>Barcelona School of Arts and Design Master in Graphic Design</td>
+            <td>Online Master in Graphic Design</td>
+            <td>Master</td>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="showUpdateProgramForm()">Edit</a></td>
+            <td><a href="#" onclick="showDeleteProgramForm()">Delete</a></td>
+            <td>5</td>
+            <td>IFA Paris Bachelor in Fashion Design and Technology</td>
+            <td>Online BS in Fashion Design and Technology</td>
+            <td>Bachelor of Arts</td>
+        </tr>
+    </table>
+
+    <!-- Add New Program section -->
+    <div id="addProgramForm" class="hidden">
+        <h3>Add New Program</h3>
+        <form id="insertProgramForm">
+            <label for="programName">Program Name:</label>
+            <input type="text" id="programName" name="programName" required>
+
+            <label for="programDescription">Description:</label>
+            <textarea id="programDescription" name="description" required></textarea>
+
+            <button type="button" onclick="insertProgram()">Save</button>
+            <button type="button" onclick="hideAddProgramForm()">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Update Program section -->
+    <div id="updateProgramForm" class="hidden">
+        <h3>Update Program</h3>
+        <form id="updateProgramForm">
+            <label for="updateProgramName">Program Name:</label>
+            <input type="text" id="updateProgramName" name="programName" value="Existing Program Name" required>
+
+            <label for="updateProgramDescription">Description:</label>
+            <textarea id="updateProgramDescription" name="description" required>Existing program description</textarea>
+
+            <button type="button" onclick="updateProgram()">Update</button>
+            <button type="button" onclick="hideUpdateProgramForm()">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Delete Program section -->
+    <div id="deleteProgramForm" class="hidden">
+        <h3>Are you sure you want to delete this program?</h3>
+        <button type="button" onclick="deleteProgram()">Delete</button>
+        <button type="button" onclick="hideDeleteProgramForm()">Cancel</button>
+    </div>
+
+    <script>
+        function showAddProgramForm() {
+            document.getElementById("addProgramForm").style.display = "block";
+        }
+
+        function hideAddProgramForm() {
+            document.getElementById("addProgramForm").style.display = "none";
+        }
+
+        function showUpdateProgramForm() {
+            document.getElementById("updateProgramForm").style.display = "block";
+        }
+
+        function hideUpdateProgramForm() {
+            document.getElementById("updateProgramForm").style.display = "none";
+        }
+
+        function showDeleteProgramForm() {
+            document.getElementById("deleteProgramForm").style.display = 'block';
+        }
+
+        function hideDeleteProgramForm() {
+            document.getElementById("deleteProgramForm").style.display = 'none';
+        }
+
+        function insertProgram() {
+            alert("Program added! (Placeholder)");
+            hideAddProgramForm();
+        }
+
+        function updateProgram() {
+            alert("Program updated! (Placeholder)");
+            hideUpdateProgramForm();
+        }
+
+        function deleteProgram() {
+            alert("Program deleted! (Placeholder)");
+            hideDeleteProgramForm();
+        }
+
+        function showAllForms() {
+            showAddProgramForm();
+            showUpdateProgramForm();
+            showDeleteProgramForm();
+        }
+
+        function hideAllForms() {
+            hideAddProgramForm();
+            hideUpdateProgramForm();
+            hideDeleteProgramForm();
+        }
+    </script>
+
+</body>
+
+</html>

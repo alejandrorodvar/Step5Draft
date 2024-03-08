@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Alumni Records</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        nav {
+            background-color: #76acdf;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        nav li {
+            float: left;
+        }
+
+        nav li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav li a:hover {
+            background-color: #111;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="/">Homepage</a></li>
+            <li><a href="/students-page">Students</a></li>
+            <li><a href="/alumni">Alumni</a></li>
+            <li><a href="/schools">Schools</a></li>
+            <li><a href="/consultations">Consultations</a></li>
+            <li><a href="/programs">Programs</a></li>
+            <li><a href="/school-programs">Schools Programs</a></li>
+        </ul>
+    </nav>
+
+    <h2>Alumni Table</h2>
+    <!-- Browse section -->
+
+    <button onclick="showAllForms()">Show All</button>
+
+    <table id="alumniTable">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>Alumni ID</th>
+                <th>Email</th>
+                <th>Full Name</th>
+                <th>Graduation Year</th>
+                <th>Degree</th>
+                <th>Schools Programs ID</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="alumniTableBody">
+            <!-- Alumni data will be loaded here -->
+            <tr>
+                <td><a href="#" onClick="showUpdateForm()">Edit</a></td>
+                <td><a href="#" onclick="showDeleteForm()">Delete</a></td>
+                <td>1</td>
+                <td>Arjun Patel</td>
+                <td>a.patel@gmail.com</td>
+                <td>2022</td>
+                <td>Mechanical Engineering</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td><a href="#" onClick="showUpdateForm()">Edit</a></td>
+                <td><a href="#" onclick="showDeleteForm()">Delete</a></td>
+                <td>2</td>
+                <td>Jane Crawford</td>
+                <td>j.crawford@gmail.com</td>
+                <td>2012</td>
+                <td>Education</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td><a href="#" onClick="showUpdateForm()">Edit</a></td>
+                <td><a href="#" onclick="showDeleteForm()">Delete</a></td>
+                <td>3</td>
+                <td>Julio Gomez</td>
+                <td>julio.g@hotmail.com</td>
+                <td>2023</td>
+                <td>Psychology</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td><a href="#" onClick="showUpdateForm()">Edit</a></td>
+                <td><a href="#" onclick="showDeleteForm()">Delete</a></td>
+                <td>4</td>
+                <td>Qin Xi Hiu</td>
+                <td>qinxi.h@hotmail.com</td>
+                <td>2017</td>
+                <td>Electrical Engineering</td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td><a href="#" onClick="showUpdateForm()">Edit</a></td>
+                <td><a href="#" onclick="showDeleteForm()">Delete</a></td>
+                <td>5</td>
+                <td>Nuri Gjoka</td>
+                <td>n.gjoka@gmail.com</td>
+                <td>2024</td>
+                <td>Pharmacy</td>
+                <td>3</td>
+            </tr>
+        </tbody>
+        
+    </table>
+
+    <button onclick="showCreateForm()">Add New Alumni</button>
+
+    <!-- Insert section -->
+    <div id="createAlumniForm" class="hidden">
+        <h3>Add Alumni</h3>
+        <form id="createAlumniForm">
+            <!-- Input for Alumni ID -->
+            <label for="alumniId">Alumni ID:</label>
+            <input type="text" id="alumniId" name="alumniId" required>
+
+            <!-- Input for Email -->
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <!-- Input for Full Name -->
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" name="fullName" required>
+
+            <!-- Input for Graduation Year -->
+            <label for="graduationYear">Graduation Year:</label>
+            <input type="text" id="graduationYear" name="graduationYear" required>
+
+            <!-- Input for Degree -->
+            <label for="degree">Degree:</label>
+            <input type="text" id="degree" name="degree" required>
+
+            <!-- Input for Schools Programs ID -->
+            <label for="schoolsProgramsId">Schools Programs ID:</label>
+            <input type="text" id="schoolsProgramsId" name="schoolsProgramsId" required>
+
+            <!-- Save and Cancel buttons -->
+            <button type="button" onclick="insertAlumni()">Save</button>
+            <button type="button" onclick="hideCreateForm()">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Update section -->
+    <div id="updateAlumniForm" class="hidden">
+        <h3>Update Alumni</h3>
+        <form id="updateAlumniForm">
+            <!-- Input for Alumni ID (Read-only as ID should not be changed) -->
+            <label for="updateAlumniId">Alumni ID:</label>
+            <input type="text" id="updateAlumniId" name="alumniId" readonly>
+
+            <!-- Input for Email -->
+            <label for="updateEmail">Email:</label>
+            <input type="email" id="updateEmail" name="email" required>
+
+            <!-- Input for Full Name -->
+            <label for="updateFullName">Full Name:</label>
+            <input type="text" id="updateFullName" name="fullName" required>
+
+            <!-- Input for Graduation Year -->
+            <label for="updateGraduationYear">Graduation Year:</label>
+            <input type="text" id="updateGraduationYear" name="graduationYear" required>
+
+            <!-- Input for Degree -->
+            <label for="updateDegree">Degree:</label>
+            <input type="text" id="updateDegree" name="degree" required>
+
+            <!-- Input for Schools Programs ID -->
+            <label for="updateSchoolsProgramsId">Schools Programs ID:</label>
+            <input type="text" id="updateSchoolsProgramsId" name="schoolsProgramsId" required>
+
+            <!-- Update and Cancel buttons -->
+            <button type="button" onclick="updateAlumni()">Update</button>
+            <button type="button" onclick="hideUpdateForm()">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Delete section -->
+    <div id="deleteAlumniForm" class="hidden">
+        <h3>Are you sure you want to delete this alumni?</h3>
+        <button type="button" onclick="deleteAlumni()">Delete</button>
+        <button type="button" onclick="hideDeleteForm()">Cancel</button>
+    </div>
+
+    <script>
+        function loadAlumni() {
+            fetch('/alumni')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    const tableBody = document.getElementById('alumniTableBody');
+                    tableBody.innerHTML = ''; // Clear table body first
+
+                    data.forEach((alumni) => {
+                        const row = tableBody.insertRow();
+                        row.innerHTML = `
+                        <td><a href="#" onClick="showUpdateForm(${JSON.stringify(alumni).replace(/"/g, '&quot;')})">Edit</a></td>
+                            <td><a href="#" onclick="showDeleteForm(${alumni.alumniID})">Delete</a></td>
+                            <td>${alumni.alumniID}</td>
+                            <td>${alumni.email}</td>
+                            <td>${alumni.fullName}</td>
+                            <td>${alumni.graduationYear}</td>
+                            <td>${alumni.degree}</td>
+                            <td>${alumni.schoolsProgramsID}</td>
+                        `;
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching alumni:', error);
+                });
+        }
+
+        // JavaScript functions to show and hide forms
+        function showCreateForm() {
+            document.getElementById("createAlumniForm").style.display = 'block';
+        }
+
+        function hideCreateForm() {
+            document.getElementById("createAlumniForm").style.display = 'none';
+        }
+
+        let currentAlumniId;
+
+        function showUpdateForm(alumni) {
+            currentAlumniId = alumni.alumniID;
+            document.getElementById("updateAlumniForm").style.display = 'block';
+            // Populate form fields with alumni data
+            document.getElementById('updateAlumniId').value = alumni.alumniID;
+            document.getElementById('updateEmail').value = alumni.email;
+            document.getElementById('updateFullName').value = alumni.fullName;
+            document.getElementById('updateGraduationYear').value = alumni.graduationYear;
+            document.getElementById('updateDegree').value = alumni.degree;
+            document.getElementById('updateSchoolsProgramsId').value = alumni.schoolsProgramsID;
+        }
+
+        function hideUpdateForm() {
+            document.getElementById("updateAlumniForm").style.display = 'none';
+        }
+
+        function showDeleteForm(alumniID) {
+            currentAlumniId = alumniID;
+            document.getElementById("deleteAlumniForm").style.display = 'block';
+        }
+
+        function hideDeleteForm() {
+            document.getElementById("deleteAlumniForm").style.display = 'none';
+        }
+
+        // Placeholder functions for CRUD operations
+        function insertAlumni() {
+            const email = document.getElementById('email').value;
+            const fullName = document.getElementById('fullName').value;
+            const graduationYear = document.getElementById('graduationYear').value;
+            const degree = document.getElementById('degree').value;
+            const schoolsProgramsId = document.getElementById('schoolsProgramsId').value;
+
+            const alumniData = { email, fullName, graduationYear, degree, schoolsProgramsId };
+
+            fetch('/alumni', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(alumniData),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(() => {
+                    hideCreateForm();
+                    loadAlumni(); // Reload the table
+                })
+                .catch((error) => {
+                    if (error instanceof SyntaxError) {
+                        console.error('There was a syntax error in the response:', error);
+                    } else {
+                        console.error('Error inserting alumni:', error);
+                    }
+                });
+        }
+
+        function updateAlumni() {
+            const alumniID = document.getElementById('updateAlumniId').value;
+            const email = document.getElementById('updateEmail').value;
+            const fullName = document.getElementById('updateFullName').value;
+            const graduationYear = document.getElementById('updateGraduationYear').value;
+            const degree = document.getElementById('updateDegree').value;
+            const schoolsProgramsId = document.getElementById('updateSchoolsProgramsId').value;
+
+            const alumniData = { email, fullName, graduationYear, degree, schoolsProgramsId };
+
+            fetch(`/alumni/${alumniID}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(alumniData),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(() => {
+                    hideUpdateForm();
+                    loadAlumni(); // Reload the table
+                })
+                .catch((error) => {
+                    console.error('Error updating alumni:', error);
+                });
+        }
+
+        function deleteAlumni() {
+            if (currentAlumniId == null) {
+                console.error('Error deleting alumni: No alumniID provided.');
+                return;
+            }
+
+            fetch(`/alumni/${currentAlumniId}`, {
+                method: 'DELETE',
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(() => {
+                    loadAlumni();
+                    hideDeleteForm();
+                })
+                .catch((error) => {
+                    console.error('Error deleting alumni:', error);
+                });
+        }
+
+        function showAllForms() {
+            document.getElementById('updateAlumniForm').style.display = 'block';
+            document.getElementById('deleteAlumniForm').style.display = 'block';
+            document.getElementById('createAlumniForm').style.display = 'block';
+        }
+
+        function hideAllForms() {
+            document.getElementById('updateAlumniForm').style.display = 'none';
+            document.getElementById('deleteAlumniForm').style.display = 'none';
+            document.getElementById('createAlumniForm').style.display = 'none';
+        }
+
+        // Add event listeners for form submissions or button clicks that call insertAlumni, updateAlumni, deleteAlumni functions
+        document.getElementById('createAlumniForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent actual form submission
+            insertAlumni();
+        });
+
+        document.getElementById('updateAlumniForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent actual form submission
+            updateAlumni();
+        });
+
+        document.getElementById('deleteAlumniForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent actual form submission
+            deleteAlumni();
+        });
+
+        // Call loadAlumni when the page loads
+        document.addEventListener('DOMContentLoaded', loadAlumni);
+    </script>
+
+</body>
+
+</html>

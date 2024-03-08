@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Schools Programs Records</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        nav {
+            background-color: #76acdf;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        nav li {
+            float: left;
+        }
+
+        nav li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav li a:hover {
+            background-color: #111;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Homepage</a></li>
+            <li><a href="/students-page">Students</a></li>
+            <li><a href="/alumni">Alumni</a></li>
+            <li><a href="/schools">Schools</a></li>
+            <li><a href="/consultations">Consultations</a></li>
+            <li><a href="/programs">Programs</a></li>
+            <li><a href="/school-programs">Schools Programs</a></li>
+        </ul>
+    </nav>
+
+    <h2>Schools Programs Table</h2>
+    <button onclick="showAddSchoolProgramForm()">Add New School Program</button>
+    <button onclick="showAllForms()">Show All Forms</button>
+    <table id="schoolsProgramsTable">
+        <tr>
+            <th>Actions</th>
+            <th>Schools Programs ID</th>
+            <th>School ID</th>
+            <th>Program ID</th>
+        </tr>
+        <tr>
+            <td>
+                <button onclick="showUpdateSchoolProgramForm(1)">Edit</button>
+                <button onclick="showDeleteSchoolProgramForm(1)">Delete</button>
+            </td>
+            <td>1</td>
+            <td>2</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>
+                <button onclick="showUpdateSchoolProgramForm(2)">Edit</button>
+                <button onclick="showDeleteSchoolProgramForm(2)">Delete</button>
+            </td>
+            <td>2</td>
+            <td>5</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td>
+                <button onclick="showUpdateSchoolProgramForm(3)">Edit</button>
+                <button onclick="showDeleteSchoolProgramForm(3)">Delete</button>
+            </td>
+            <td>3</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>
+                <button onclick="showUpdateSchoolProgramForm(4)">Edit</button>
+                <button onclick="showDeleteSchoolProgramForm(4)">Delete</button>
+            </td>
+            <td>4</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>
+                <button onclick="showUpdateSchoolProgramForm(5)">Edit</button>
+                <button onclick="showDeleteSchoolProgramForm(5)">Delete</button>
+            </td>
+            <td>5</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+    </table>
+
+    <!-- Add New School Program section -->
+    <div id="addNewProgramForm" class="hidden">
+        <h3>Add New Program</h3>
+        <form id="addNewProgramForm">
+            <label for="insertSchoolSelect">School ID:</label>
+            <select id="insertSchoolSelect" name="schoolId" required>
+            </select>
+
+            <label for="insertProgramSelect">Program ID:</label>
+            <select id="insertProgramSelect" name="programId" required>
+            </select>
+
+            <button type="button" onclick="insertSchoolProgram()">Add Program</button>
+            <button type="button" onclick="hideAddSchoolProgramForm()">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Update School Program section -->
+    <div id="updateSchoolProgramForm" class="hidden">
+        <h3>Update School Program</h3>
+        <form id="updateSchoolProgramForm">
+            <label for="updateSchoolSelect">School ID:</label>
+            <select id="updateSchoolSelect" name="schoolId" required>
+            </select>
+
+            <label for="updateProgramSelect">Program ID:</label>
+            <select id="updateProgramSelect" name="programId" required>
+            </select>
+
+            <button type="button" onclick="updateSchoolProgram()">Update</button>
+            <button type="button" onclick="hideUpdateSchoolProgramForm()">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Delete School Program section -->
+    <div id="deleteSchoolProgramForm" class="hidden">
+        <h3>Are you sure you want to delete this school program?</h3>
+        <button type="button" onclick="deleteSchoolProgram()">Delete</button>
+        <button type="button" onclick="hideDeleteSchoolProgramForm()">Cancel</button>
+    </div>
+
+    <script>
+        function showAddSchoolProgramForm() {
+            document.getElementById("addNewProgramForm").style.display = "block";
+        }
+
+        function hideAddSchoolProgramForm() {
+            document.getElementById("addNewProgramForm").style.display = "none";
+        }
+
+        function showUpdateSchoolProgramForm() {
+            document.getElementById("updateSchoolProgramForm").style.display = "block";
+        }
+
+        function hideUpdateSchoolProgramForm() {
+            document.getElementById("updateSchoolProgramForm").style.display = "none";
+        }
+
+        function showDeleteSchoolProgramForm() {
+            document.getElementById("deleteSchoolProgramForm").style.display = 'block';
+        }
+
+        function hideDeleteSchoolProgramForm() {
+            document.getElementById("deleteSchoolProgramForm").style.display = 'none';
+        }
+
+        function insertSchoolProgram() {
+            hideAddSchoolProgramForm();
+        }
+
+        function updateSchoolProgram() {
+            hideUpdateSchoolProgramForm();
+        }
+
+        function deleteSchoolProgram() {
+            hideDeleteSchoolProgramForm();
+        }
+
+        function showAllForms() {
+            showAddSchoolProgramForm();
+            showUpdateSchoolProgramForm();
+            showDeleteSchoolProgramForm();
+        }
+
+        // Function to hide all forms
+        function hideAllForms() {
+            hideAddSchoolProgramForm();
+            hideUpdateSchoolProgramForm();
+            hideDeleteSchoolProgramForm();
+        }
+
+        // Example data arrays
+        const schools = [
+            { id: 1, name: "University of Washington" },
+            { id: 2, name: "Boston College" },
+            { id: 3, name: "University of Buenos Aires" },
+            { id: 4, name: "The University of Hong Kong" },
+            { id: 5, name: "University of Sydney" }
+        ];
+
+        const programs = [
+            { id: 1, name: "M.S. in Data Science" },
+            { id: 2, name: "Master of Science in Accounting" },
+            { id: 3, name: "Business Analytics and Data Science" },
+            { id: 4, name: "Master in Graphic Design" },
+            { id: 5, name: "Bachelor in Fashion Design and Technology" }
+        ];
+
+        const insertSchools = [
+            { id: 1, name: "University of Washington" },
+            { id: 2, name: "Boston College" },
+            { id: 3, name: "University of Buenos Aires" },
+            { id: 4, name: "The University of Hong Kong" },
+            { id: 5, name: "University of Sydney" }
+        ];
+
+        const insertPrograms = [
+            { id: 1, name: "M.S. in Data Science" },
+            { id: 2, name: "Master of Science in Accounting" },
+            { id: 3, name: "Business Analytics and Data Science" },
+            { id: 4, name: "Master in Graphic Design" },
+            { id: 5, name: "Bachelor in Fashion Design and Technology" }
+        ];
+
+        // Function to populate the dropdowns
+        function populateDropdowns() {
+            const schoolSelect = document.getElementById('updateSchoolSelect');
+            const programSelect = document.getElementById('updateProgramSelect');
+            const insertSchoolSelect = document.getElementById('insertSchoolSelect');
+            const insertProgramSelect = document.getElementById('insertProgramSelect');
+
+            // Populate School Select
+            schools.forEach(school => {
+                const option = document.createElement('option');
+                option.value = school.id;
+                option.textContent = `id: ${school.id}, ${school.name}`;
+                schoolSelect.appendChild(option);
+            });
+
+            // Populate Program Select
+            programs.forEach(program => {
+                const option = document.createElement('option');
+                option.value = program.id;
+                option.textContent = `id: ${program.id}, ${program.name}`;
+                programSelect.appendChild(option);
+            });
+
+            insertSchools.forEach(school => {
+                const option = document.createElement('option');
+                option.value = school.id;
+                option.textContent = `id: ${school.id}, ${school.name}`;
+                insertSchoolSelect.appendChild(option);
+            });
+
+            // Populate Program Select
+            insertPrograms.forEach(program => {
+                const option = document.createElement('option');
+                option.value = program.id;
+                option.textContent = `id: ${program.id}, ${program.name}`;
+                insertProgramSelect.appendChild(option);
+            });
+        }
+
+        // Call this function to populate dropdowns when the page loads or when needed
+        populateDropdowns();
+    </script>
+
+</body>
+
+</html>

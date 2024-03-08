@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Consultation Records</title>
+    <style>
+        /* Include additional styling as needed */
+        .hidden {
+            display: none;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        nav {
+            background-color: #76acdf;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        nav li {
+            float: left;
+        }
+        nav li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        nav li a:hover {
+            background-color: #111;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="/">Homepage</a></li>
+            <li><a href="/students-page">Students</a></li>
+            <li><a href="/alumni">Alumni</a></li>
+            <li><a href="/schools">Schools</a></li>
+            <li><a href="/consultations">Consultations</a></li>
+            <li><a href="/programs">Programs</a></li>
+            <li><a href="/school-programs">Schools Programs</a></li>
+        </ul>
+    </nav>
+
+    <h2>Consultations Table</h2>
+    <button onclick="showAddConsultationForm()">Add New Consultation</button>
+    <button onclick="showAllForms()">Show All</button>
+    <table>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>Consultant ID</th>
+            <th>Student ID</th>
+            <th>Alumni ID</th>
+            <th>Notes</th>
+            <th>Consultation Date</th>
+            <th>School Program ID</th>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="showUpdateConsultationForm()">Edit</a></td>
+            <td><a href="#" onclick="showDeleteConsultationForm()">Delete</a></td>
+            <td>1</td>
+            <td>3</td>
+            <td>1</td>
+            <td>Student was helped with transferring programs</td>
+            <td>05/01/24</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="showUpdateConsultationForm()">Edit</a></td>
+            <td><a href="#" onclick="showDeleteConsultationForm()">Delete</a></td>
+            <td>2</td>
+            <td>5</td>
+            <td>3</td>
+            <td>Student helped with finding alternate class resources</td>
+            <td>06/21/24</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="showUpdateConsultationForm()">Edit</a></td>
+            <td><a href="#" onclick="showDeleteConsultationForm()">Delete</a></td>
+            <td>3</td>
+            <td>4</td>
+            <td>2</td>
+            <td>Student helped with networking</td>
+            <td>05/05/24</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="showUpdateConsultationForm()">Edit</a></td>
+            <td><a href="#" onclick="showDeleteConsultationForm()">Delete</a></td>
+            <td>4</td>
+            <td>2</td>
+            <td>5</td>
+            <td>Student given a private resume workshop</td>
+            <td>04/02/24</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="showUpdateConsultationForm()">Edit</a></td>
+            <td><a href="#" onclick="showDeleteConsultationForm()">Delete</a></td>
+            <td>5</td>
+            <td>3</td>
+            <td>5</td>
+            <td>Student helped with applying for a graduate program</td>
+            <td>06/06/24</td>
+            <td>2</td>
+        </tr>
+    </table>
+
+    <!-- Add New Consultation section -->
+    <div id="addConsultationForm" class="hidden">
+        <h3>Add New Consultation</h3>
+        <form id="insertConsultationForm">
+            <label for="consultantId">Consultant ID:</label>
+            <input type="number" id="consultantId" name="consultantId" required>
+
+            <label for="studentId">Student ID:</label>
+            <input type="number" id="studentId" name="studentId" required>
+
+            <label for="alumniId">Alumni ID:</label>
+            <input type="number" id="alumniId" name="alumniId">
+
+            <label for="consultationNotes">Notes:</label>
+            <textarea id="consultationNotes" name="notes" required></textarea>
+
+            <label for="consultationDate">Consultation Date:</label>
+            <input type="date" id="consultationDate" name="date" required>
+
+            <label for="schoolProgramId">School Program ID:</label>
+            <input type="number" id="schoolProgramId" name="schoolProgramId" required>
+
+            <button type="button" onclick="insertConsultation()">Save</button>
+            <button type="button" onclick="hideAddConsultationForm()">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Update Consultation section -->
+    <div id="updateConsultationForm" class="hidden">
+        <h3>Update Consultation</h3>
+        <form id="updateForm">
+            <label for="updateConsultantId">Consultant ID:</label>
+            <input type="number" id="updateConsultantId" name="consultantId" value="1" required>
+
+            <label for="updateStudentId">Student ID:</label>
+            <input type="number" id="updateStudentId" name="studentId" value="10001" required>
+
+            <label for="updateAlumniId">Alumni ID:</label>
+            <input type="number" id="updateAlumniId" name="alumniId" value="20001">
+
+            <label for="updateConsultationNotes">Notes:</label>
+            <textarea id="updateConsultationNotes" name="notes"
+                required>Initial consultation went well. Discussed career goals and academic progress.</textarea>
+
+            <label for="updateConsultationDate">Consultation Date:</label>
+            <input type="date" id="updateConsultationDate" name="date" value="2024-02-16" required>
+
+            <label for="updateSchoolProgramId">School Program ID:</label>
+            <input type="number" id="updateSchoolProgramId" name="schoolProgramId" value="3001" required>
+
+            <button type="button" onclick="updateConsultation()">Update</button>
+            <button type="button" onclick="hideUpdateConsultationForm()">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Delete Consultation section -->
+    <div id="deleteConsultationForm" class="hidden">
+        <h3>Are you sure you want to delete this consultation?</h3>
+        <button type="button" onclick="deleteConsultation()">Delete</button>
+        <button type="button" onclick="hideDeleteConsultationForm()">Cancel</button>
+
+        <script>
+            function showAddConsultationForm() {
+                document.getElementById("addConsultationForm").style.display = "block";
+            }
+
+            function hideAddConsultationForm() {
+                document.getElementById("addConsultationForm").style.display = "none";
+            }
+
+            function showUpdateConsultationForm() {
+                document.getElementById("updateConsultationForm").style.display = "block";
+            }
+
+            function hideUpdateConsultationForm() {
+                document.getElementById("updateConsultationForm").style.display = "none";
+            }
+
+            function showDeleteConsultationForm() {
+                document.getElementById("deleteConsultationForm").style.display = 'block';
+            }
+
+            function hideDeleteConsultationForm() {
+                document.getElementById("deleteConsultationForm").style.display = 'none';
+            }
+
+            function addConsultation() {
+                alert("Consultation added! (Placeholder)");
+                hideAddConsultationForm();
+            }
+
+            function updateConsultation() {
+                alert("Consultation updated! (Placeholder)");
+                hideUpdateConsultationForm();
+            }
+
+            function showAllForms() {
+                showAddConsultationForm();
+                showUpdateConsultationForm();
+                showDeleteConsultationForm();
+            }
+
+            function hideAllForms() {
+                hideAddConsultationForm();
+                hideUpdateConsultationForm();
+                hideDeleteConsultationForm();
+            }
+
+        </script>
+
+</body>
+
+</html>
